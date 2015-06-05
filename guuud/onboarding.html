@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<!--html xmlns="http://www.w3.org/1999/xhtml"-->
+<html class="no-js" language="en-US">
+<head>
+	
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Continuous scrolling - fullPage.js</title>
+	<meta name="author" content="Matthew Howell" />
+	<meta name="description" content="fullPage continuous scrolling demo." />
+	<meta name="keywords"  content="fullpage,jquery,demo,scroll,loop,continuous" />
+	<meta name="Resource-type" content="Document" />
+
+
+	<link rel="stylesheet" type="text/css" href="styles/jquery.fullPage.css" />
+	<link rel="stylesheet" type="text/css" href="styles/main.css" />
+
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+	<script src="scripts/jquery.min.js"></script>
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>-->
+
+	<script type="text/javascript" src="scripts/jquery.fullPage.min.js"></script>
+
+	<script type="text/javascript">
+    var darkThemeColor = '#072E55';
+    var whiteThemeColor = '#FFFFFF';
+    var logoWhite = 'images/Guuud-logo-white.png';
+    var logoDark = 'images/Guuud-logo-blue.png';
+
+    var pageThemes = [
+      {},
+      {
+        tag: 'home',
+        logo: logoWhite,
+        menu: {
+          fontColor: whiteThemeColor,
+          selected: whiteThemeColor
+        },
+        navigation: whiteThemeColor,
+        tryButtonHidden: true
+      },
+      {
+        tag: 'about-guuud',
+        logo: logoDark,
+        menu: {
+          fontColor: darkThemeColor,
+          selected: darkThemeColor
+        },
+        navigation: darkThemeColor,
+        tryButtonHidden: false
+      },
+      {
+        tag: 'portfolio-plugin',
+        logo: logoWhite,
+        menu: {
+          fontColor: whiteThemeColor,
+          selected: whiteThemeColor
+        },
+        navigation: whiteThemeColor,
+        tryButtonHidden: false
+      },
+      {
+        tag: 'portfolio-website',
+        logo: logoWhite,
+        menu: {
+          fontColor: whiteThemeColor,
+          selected: whiteThemeColor
+        },
+        navigation: whiteThemeColor,
+        tryButtonHidden: false
+      },
+      {
+        tag: 'portfolio-apps',
+        logo: logoWhite,
+        menu: {
+          fontColor: whiteThemeColor,
+          selected: whiteThemeColor
+        },
+        navigation: whiteThemeColor,
+        tryButtonHidden: false
+      },
+      {
+        tag: 'portfolio-notifications ',
+        logo: logoWhite,
+        menu: {
+          fontColor: whiteThemeColor,
+          selected: whiteThemeColor
+        },
+        navigation: whiteThemeColor,
+        tryButtonHidden: false
+      },
+      {
+        tag: 'supporting',
+        logo: logoDark,
+        menu: {
+          fontColor: darkThemeColor,
+          selected: darkThemeColor
+        },
+        navigation: darkThemeColor,
+        tryButtonHidden: false
+      },
+      {
+        tag: 'download',
+        logo: logoDark,
+        menu: {
+          fontColor: darkThemeColor,
+          selected: darkThemeColor
+        },
+        navigation: darkThemeColor,
+        tryButtonHidden: true
+      },
+      {
+        tag: 'contact',
+        logo: logoWhite,
+        menu: {
+          fontColor: whiteThemeColor,
+          selected: whiteThemeColor
+        },
+        navigation: whiteThemeColor,
+        tryButtonHidden: false
+      }
+    ];
+
+		$(document).ready(function() {
+			$('#fullpage').fullpage({
+			  sectionsColor: ['#73C4D7', '#FFFFFF', '#283654', '#283654', '#283654', '#283654', 'whitesmoke', '#DAF1F7', '#1C1C1C'],
+			  anchors: ['home', 'aboutGuuud', 'portfolio', 'portfolio1', 'portfolio2', 'portfolio3', 'supporting', 'download', 'contact'],
+			  menu: '#menu',
+			  continuousVertical: false,
+				'navigation': true,
+				'navigationPosition': 'right',
+        onLeave: function(index, nextIndex, direction) {
+          console.log(nextIndex)
+          var theme = pageThemes[nextIndex];
+          var section = '#section' + nextIndex - 1;
+          console.log(theme)
+          var backgroundImage = 'url("'+theme.logo+'") no-repeat';
+
+          $('#brand-logo').css('background', backgroundImage);
+
+          $('#menu>li>a').css('color', theme.menu.fontColor);
+          $.each($('#menu').find('li'), function (menuIndex) {
+            $(this).css('border-color', ' ');
+            if(menuIndex == (nextIndex-1)) {
+               $(this).css('border-color', theme.menu.selected);
+            }
+            var ParentNode = '#' + $(this).data('parent');
+             $(this).removeClass('parent-active')
+            if(ParentNode && menuIndex == (nextIndex-1)) {
+              $(ParentNode).addClass('parent-active');
+            }
+          });
+
+          if(!theme.tryButtonHidden) {
+            $('#try-button').removeClass('hide-menu');
+          } else {
+            $('#try-button').addClass('hide-menu');
+          }
+
+          $('#fp-nav>ul>li>a>span').css('background', theme.navigation);
+          $('#try-button').css('display', 'none!important');
+
+        }
+			});
+		});
+	</script>
+
+</head>
+<body>
+<div id="navbar">
+	<div class="navbar-container">
+		<div id="brand-logo"></div>
+		<ul id="menu" class="menu-container">
+			<li id="menu-home" data-menuanchor="home" class="active"><a href="#home">HOME</a></li>
+			<li id="menu-about-guuud" data-menuanchor="aboutGuuud"><a href="#aboutGuuud">ABOUT GUUUD</a></li>
+			<li id="menu-portfolio-plugin" data-menuanchor="portfolio"><a href="#portfolio">PORTFOLIO</a></li>
+			<li id="menu-portfolio-website" data-menuanchor="portfolio1" data-parent="menu-portfolio-plugin" class="hide-menu"><a href="#portfolio1"></a></li>
+			<li id="menu-portfolio-apps" data-menuanchor="portfolio2" data-parent="menu-portfolio-plugin" class="hide-menu"><a href="#portfolio2"></a></li>
+			<li id="menu-portfolio-notification" data-menuanchor="portfolio3" data-parent="menu-portfolio-plugin" class="hide-menu"><a href="#portfolio3"></a></li>
+			<li id="menu-supporting" data-menuanchor="supporting"><a href="#supporting">SUPPORTING</a></li>
+			<li id="menu-download" data-menuanchor="download" class="hide-menu"><a href="#download">DOWNLOAD</a></li>
+			<li id="menu-cation" data-menuanchor="contact"><a href="#contact">CONTACT</a></li>
+		</ul>
+    <div id="try-button" class="hide-menu"><a href="#download">TRY IT NOW</a></div>
+	</div>
+</div>
+
+
+<div id="fullpage">
+
+	<div class="section " id="section0">
+		<div id="home" class="page">
+			<div class="page-container">
+
+                <div class="home-description">
+                    <p>GUUUD, YOUR PERSONAL TRACKER</p>
+                    <p class="sub-header-line">Everything you need to know, is yours.</p>
+                </div>
+
+				<div class="container-float home-download">
+					<div class="home-download-btns">
+						<!--<a class="home-download-mac" href="javascript:void(0)">-->
+							<!--<img src="{{screenShotSrc.dIphoneBlue}}">-->
+						<!--</a>-->
+						<!--<a class="home-download-iphone" href="javascript:void(0)">-->
+							<!--<img src="images/Google-play-blue.png">-->
+						<!--</a>-->
+					</div>
+				</div>
+
+				<div class="container-float home-img ">
+					<img  class="home-mac1" src="images/Macbook-1.png">
+					<img class="home-phone1" src="images/home-2.png">
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="section" id="section1">
+		<div id="about-guuud-page" class="page">
+			<div class="page-container">
+
+
+				<div class="container-float  about-content-container">
+					<div class="about-content"><!--container-float, about-content-container, about-content-->
+						<p class="content-title about-title">About Us</p>
+						<p class="content-description about-description"><!--content-title content-description about-description-->
+							Guuud is created all out of love - in this information age, too much information is a pain.
+Guuud is here for the everyday web-surfer, the bargain hunter, the price sensitive, the lifestyle gurus.
+Watch Guuud!
+						</p>
+					</div>
+				</div>
+
+                <div class="container-float  about-video-container">
+                    <div class="about-video">
+                        <iframe src="https://player.vimeo.com/video/128470953" width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="section" id="section2">
+		<div id="portfolio-plugin" class="page">
+			<div class="page-container">
+				<div class="container-float  size-6">
+					<div class="portfolio-image portfolio-plugin-image"></div>
+				 </div>
+				<div class="container-float  portfolio-plugin-content">
+					<div class="portfolio-content">
+						<p class="content-title portfolio-title">Plug-in</p>
+						<p class="content-description portfolio-description">
+							Available for all browsers with a simple plug-in, your browse and search experience will be taken to a whole new level.
+You set the criteria, the rest of the work is with us. Track, Research, Alert.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="section" id="section3">
+		<div id="portfolio-website" class="page">
+			<div class="page-container">
+				<div class="container-float portfolio-website-container">
+					<img class="portfolio-website-image" src="images/Macbook-1.png">
+				</div>
+				<div class="container-float portfolio-content-container">
+					<div class="portfolio-content">
+						<p class="content-title portfolio-title">WEBPAGE</p>
+						<p class="content-description portfolio-description">
+							Guuud has monitors a number of popular pages live. These pages are instantly available for your Guuud needs. Can't find them in our list? Tell us! We will do it for you!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section" id="section4">
+		<div id="portfolio-apps" class="page">
+			<div class="page-container">
+				<div class="container-float  size-5">
+					<div class="portfolio-content portfolio-apps-content">
+						<p class="content-title portfolio-title">APPLICATION</p>
+						<p class="description portfolio-description">
+					 		Guuud is available to you, On-The-Go. Whenever you need us, we will make it Guuud.
+						</p>
+						<p class="coming-soon-text">
+							<!--<button type="button" id="btn-coming-soon">Coming soon on Google Play.</button>-->
+							&gt;&gt; Coming soon on Google Play
+						</p>
+					</div>
+				</div>
+				 <div class="container-float  size-5">
+					<img class="portfolio-image portfolio-apps-image" src="images/home-2.png">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section" id="section5">
+		<div id="portfolio-notifications" class="page">
+			<div class="page-container">
+				<div class="portfolio-notifications-content">
+					<p class="content-title portfolio-title">NOTIFICATION</p>
+					<p class="content-description portfolio-description">
+						As soon as your criteria has been met, Guuud let's you know, in the form of a powerful notification.
+					</p>
+				</div>
+				<div class="portfolio-notifications-container">
+					<img class="portfolio-image portfolio-notifications-mac4" src="images/Macbook-2.png">
+					<img class="portfolio-image portfolio-notifications-phone1" src="images/Notification-3.png">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section" id="section6">
+		<div id="supporting-page"  class="page">
+			<div class="page-container">
+				<div class="supporting-description">
+					<p>
+						We are supporting <span class="website-num">over 20</span> websites for you <br>to track with and we are adding more in.
+					</p>
+				</div>
+				<div class="container-float  supporting-image-container">
+					<div class="portfolio-image supporting-image"></div>
+				</div>
+				<div class="container-float  supporting-content">
+					<div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.armaniexchange.com
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.zalora.com.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						onestopshopmarket.com
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						weemall.com
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.olx.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.keekay.ph
+					</div><div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.widgetcity.com.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						kimstore.com
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						shop.thesmstore.com
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						shop.bench.com.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						hallohallomall.com
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.ebay.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.shopthiseasy.com
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						www.tomato.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						boardwalk.com.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						ava.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						zoo.com.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						aionlineshop.com.ph
+					</div>
+          <div class="support-site ng-binding ng-scope" ng-repeat="site in websites">
+						...
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section" id="section7">
+		<div id="download-page" class="page">
+      <div class="page-container">
+        <div class="download-description">
+            <p> We are supporting website for you to track with.</p>
+        </div>
+        <div class="download-container">
+          <div class="download download-plugin">
+            <div class="content-title">Plug-in</div>
+            <div class="download-desc">
+              Lorem ipsum dolor sit amet, meis volutpat nam ne, ut sit
+              augue graeci voluptatum, in volumus argumentum eloquentiam
+              ius. Est quod perpetua eu, eu zril offendit evertitur vim.
+              Te fugit sanctus sea, mei ad feugiat inimicus. His
+              possit molestie volutpat ei, te populo habemus qui, qui
+              quaerendum signiferumque ex. Pro vero signiferumque ea,
+              in diam natum magna duo. Id dictas rationibus nam, eos enim
+              ponderum at.
+            </div>
+            <div class="download-action">
+              <a href="javascript:void(0)">
+                <img ng-src="{{screenShotSrc.logo1}}">
+              </a>
+              <p><strong>Install Guuud Button</strong></p>
+              <p>(drag to your bookmark bar)</p>
+            </div>
+          </div>
+          <div class="download download-webpage">
+            <div class="content-title">Webpage</div>
+            <div class="download-desc">
+              Lorem ipsum dolor sit amet, meis volutpat nam ne, ut sit
+              augue graeci voluptatum, in volumus argumentum eloquentiam
+              ius. Est quod perpetua eu, eu zril offendit evertitur vim.
+              Te fugit sanctus sea, mei ad feugiat inimicus. His
+              possit molestie volutpat ei, te populo habemus qui, qui
+              quaerendum signiferumque ex. Pro vero signiferumque ea,
+              in diam natum magna duo. Id dictas rationibus nam, eos enim
+              ponderum at.
+            </div>
+            <div class="download-action">
+              <a class="btn-download-webpage" href="#">Try web version now</a>
+            </div>
+          </div>
+          <div class="download download-app">
+            <div class="content-title">Mobile App</div>
+            <div class="download-desc">
+              Lorem ipsum dolor sit amet, meis volutpat nam ne, ut sit
+              augue graeci voluptatum, in volumus argumentum eloquentiam
+              ius. Est quod perpetua eu, eu zril offendit evertitur vim.
+              Te fugit sanctus sea, mei ad feugiat inimicus. His
+              possit molestie volutpat ei, te populo habemus qui, qui
+              quaerendum signiferumque ex. Pro vero signiferumque ea,
+              in diam natum magna duo. Id dictas rationibus nam, eos enim
+              ponderum at.
+            </div>
+            <div class="download-action">
+              <!--<a href="javascript:void(0)">-->
+                <!--<img ng-src="{{screenShotSrc.dIphoneWhite}}">-->
+              <!--</a>-->
+              <a href="javascript:void(0)">
+                <img ng-src="{{screenShotSrc.dAndroidWhite}}">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+
+	<div class="section" id="section8">
+		<div id="contact-page" class="page">
+      <div class="page-container">
+        <div class="contact-description">
+            <p class="a">We are professional and nice</p>
+            <p class="b">CONTACT US</p>
+        </div>
+        <div class="contact-container">
+          <div class="">
+            <div class="contact-title">CONTACT</div>
+            <p>Email: helle@guuud.com</p>
+          </div>
+          <div class="">
+            <div class="contact-title">WELCOME</div>
+            <p>Guuud Ptd.Ltd.</p>
+          </div>
+          <div class="">
+            <div class="contact-title">SOCIAL</div>
+            <a href="javascript:void(0)">
+              <img src="images/facebook-icon.png">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+</div>
+
+</body>
+</html>

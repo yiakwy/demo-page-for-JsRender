@@ -1,0 +1,512 @@
+/* Custom CSS
+ * --------------------------------------- */
+body{
+	font-family: arial, helvetica, sans-serif;
+}
+/* Relative Position X .wrap */
+.wrap{
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+	position: relative;
+}
+
+.intro p{
+	width: 50%;
+	margin: 0 auto;
+	font-size: 1.5em;
+}
+.section{
+	text-align:center;
+}
+/* ---------------------- navigation bar ------------------------*/
+/* Fixed Position Y .navbar */
+#navbar {
+	position:fixed;
+	top: 24px;
+	height: 60px;
+	z-index: 70;
+	width: 100%;
+	padding: 0;
+    margin: auto;
+/* This is just for test */
+    background-color: rgba(0,0,0,1);
+}
+
+.navbar-container {
+	width: 1024px;
+	margin: auto;
+    position: relative;
+}
+#brand-logo {
+  background: url("../images/Guuud-logo-white.png") no-repeat;
+	width: 200px;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#menu{
+  position: relative;
+  top: 22px;
+  left: 200px;
+}
+
+#menu li {
+	display:inline-block;
+  font-size: 12px;
+  height: 15px;
+  width: 100px;
+  margin: auto;
+  padding: 7px 5px;
+  text-align: center;
+}
+
+.menu-container li a{
+  text-decoration:none;
+  color: #FFFFFF;
+}
+
+
+#menu li.active, #menu li.parent-active{
+	color: #fff;
+  border: 1px solid;
+  border-radius: 22px;
+}
+
+.hide-menu {
+	display: none!important;
+	width: 0;
+	height: 0;
+	padding: 0;
+	margin: 0;
+}
+
+#try-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  background-color: #73C4D7;
+}
+
+#try-button a {
+  color: #FFFFFF;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.clear {
+  clear: both;
+}
+/* -------------------- page styles -----------------------*/
+.page {
+  position: relative;
+  height: 100%;
+  min-height: 768px;
+  margin-top: 80px;
+}
+.page-container {
+  width: 1024px;
+  height: 100%;
+  margin: auto;
+  padding-top: 1px;
+}
+.container-float {
+ float: left;
+}
+.content-title {
+  font-size: 30px;
+}
+.content-description {
+ line-height: 18px;
+}
+.content-title, .content-description {
+  text-align: left;
+}
+
+/*-----------------------------split page size----------------------------*/
+.size-2 {
+  width: 19%;
+}
+
+.size-3 {
+  width: 29%;
+}
+
+.size-4 {
+  width: 39%;
+}
+
+.size-5 {
+  width: 49%;
+}
+
+.size-6 {
+  width: 59%;
+}
+
+.size-7 {
+  width: 69%;
+}
+
+.size-8 {
+  width: 79%;
+}
+
+/* ------------------- home page --------------------------*/
+#home {
+  color: #FFFFFF;
+  padding-top: 100px;
+}
+.home-mac1 {
+  position: relative;
+  top: -50px;
+  left: 300px;
+  width: 800px;
+}
+.home-phone1 {
+  position: absolute;
+  left: 280px;
+  bottom: 100px;
+  width: 200px;
+}
+.home-content {
+
+}
+.home-description {
+  margin: 80px 0 20px 0;
+  text-align: left;
+}
+.home-description p {
+  font-size: 41px;
+}
+.home-description p.sub-header-line {
+  font-size: 28px;
+}
+
+.home-download {
+}
+.home-img {
+  position: relative;
+}
+
+.home-download-btns>a>img {
+  margin-right: 15px;
+  width: 120px;
+}
+
+/* ----------------------about guuud page ----------------------*/
+#about-guuud-page {
+  padding-top: 200px;
+}
+.about-video {
+  height: 380px;
+  width: 600px;
+  margin: 0 30px;
+  background: lightskyblue;
+}
+.about-video-container {
+  width: 63%;
+}
+.about-content-container {
+  width: 30%;
+}
+
+.about-content {
+  position: relative;
+  top: 50px;
+}
+.about-title {
+  color: #1B1B1B;
+  font-size: 30px;
+}
+
+.about-description {
+  color: #B8B8B8;
+  font-size: 10pt;
+}
+
+/*--------------------------portfolio page---------------------------*/
+.portfolio {
+  position: relative;
+  top: 0;
+}
+.portfolio-image {
+  height: 100%;
+  width: 100%;
+}
+
+.portfolio-content {
+  position: relative;
+  top: 150px;
+}
+
+.portfolio-title {
+  color: #FFFFFF;
+}
+
+/* --------------------------portfolio plugin page--------------------------*/
+
+#portfolio-plugin {
+  padding-top: 100px;
+}
+
+#portfolio-plugin .page-container {
+  margin: 0;
+  width: 100%;
+}
+
+.portfolio-plugin-content {
+  width: 350px;
+}
+
+.portfolio-description {
+  color: #FFFFFF;
+  font-size: 12px;
+}
+
+.portfolio-plugin-image {
+  background: url("../images/iMac-1.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  overflow: hidden;
+  height: 780px;
+  background-size: 1224px 1024px;
+}
+
+/* ----------------------portfolio website page------------------------- */
+#portfolio-website {
+  padding-top: 100px;
+}
+
+.portfolio-website-image {
+  position: relative;
+  left: -200px;
+  width: 1024px;
+}
+
+.portfolio-website-container {
+  width: 70%;
+}
+
+.portfolio-content-container {
+  width: 25%;
+}
+
+/* ----------------------portfolio apps page---------------------------- */
+
+#portfolio-apps {
+ padding-top: 100px;
+}
+
+.portfolio-apps-content {
+  padding-left: 200px;
+  text-align: left;
+}
+
+.portfolio-apps-image {
+  width: 400px;
+  height: 720px;
+  overflow: hidden;
+}
+.coming-soon-text {
+  color: #FFFFFF;
+}
+
+/* ----------------------portfolio notifications page----------------------- */
+
+#portfolio-notifications {
+ padding-top: 100px;
+}
+
+.portfolio-notifications-content {
+  text-align: center;
+  padding: 0 250px;
+}
+
+.portfolio-notifications-content p {
+  text-align: center;
+}
+.portfolio-notifications-content p.content-description {
+  font-size: 10pt;
+}
+
+.portfolio-notifications-container {
+  position: relative;
+  top: -50px;
+  text-align: center;
+}
+
+.portfolio-notifications-mac4 {
+  width: 1100px;
+  height: 700px;
+  position: relative;
+  top: 50px;
+  left: -20px;
+}
+
+.portfolio-notifications-phone1 {
+  width: 280px;
+  height: 550px;
+  top: 150px;
+  left: 50px  ;
+  position: absolute;
+}
+
+/* --------------------------supporting------------------------------*/
+#supporting-page {
+  color: #072D52;
+  padding-top: 100px;
+}
+
+#supporting-page .page-container {
+  width: 100%;
+  height: 100%;
+}
+
+.supporting-description {
+  font-size: 36px;
+  text-align: center;
+}
+.supporting-content {
+  width: 500px;
+  margin-top: 100px;
+}
+.supporting-image-container {
+  width: 50%;
+}
+.supporting-image {
+  background: url("../images/iMac-2.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  overflow: hidden;
+  height: 650px;
+  background-size: 1024px 940px;
+}
+.website-num {
+  color: #73C4D7;
+}
+
+.support-site {
+  height: 40px;
+  width: 160px;
+  display: table-cell;
+  padding: 10px 0;
+  float: left;
+  font-size: 12px;
+  text-align: left;
+}
+
+/* ----------------------------download page------------------------------*/
+#download-page {
+  color: #072D52;
+  padding-top: 150px;
+}
+.download-description {
+  position: relative;
+  top: 0;
+  font-size: 36px;
+  text-align: center;
+}
+.download-container {
+  width: 100%;
+  position: relative;
+  top:  0;
+  left: 36px;
+}
+.download-plugin {
+  background-color: #394867;
+}
+.download-webpage {
+  background-color: #2B3654;
+}
+.download-app {
+  background-color: #072E55;
+}
+.download {
+  width: 242px;
+  height: 300px;
+  padding: 40px 20px 50px 20px;
+  float: left;
+  margin-left: 24px;
+  border-radius: 5px;
+}
+.download>.content-title {
+  margin-bottom: 20px;
+}
+.download-desc {
+  text-align: justify;
+  font-size: 12px;
+  line-height: 16px;
+}
+.download>div {
+  color: #FFFFFF;
+}
+.download-action {
+  text-align: center;
+  font-size: 14px;
+}
+.download-action>p {
+  margin: 5px auto;
+}
+.download-plugin>.download-action {
+  padding-top: 30px;
+}
+
+.download-webpage>.download-action {
+  padding-top: 90px;
+}
+.download-app>.download-action {
+  padding-top: 78px;
+}
+.download-app>.download-action>a>img {
+  height: 36px;
+  margin: 0 5px;
+}
+
+.btn-download-webpage {
+  padding: 10px 20px;
+  border: solid 1px #FFFFFF;
+  border-radius: 5px;
+  color: white;
+}
+
+/* ---------------------------contact page-----------------------------*/
+#contact-page {
+  color: #FFFFFF;
+  padding-top: 150px;
+}
+
+.contact-description {
+  position: relative;
+  top: 40px;
+  text-align: center;
+}
+.contact-description>.a {
+  font-size: 14px;
+}
+.contact-description>.b {
+  font-size: 40px;
+  margin: 10px auto;
+}
+.contact-container {
+  position: relative;
+  top: 80px;
+}
+.contact-container>div {
+  width: 242px;
+  height: 300px;
+  padding: 40px 20px 50px 20px;
+  float: left;
+  margin-left: 45px;
+  text-align: center;
+}
+.contact-title {
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  border-bottom: solid 3px #FFFFFF;
+  margin-bottom: 30px;
+}

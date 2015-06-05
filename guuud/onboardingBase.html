@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!--basic info-->
+    <meta charset="UTF-8"><!--meta http-equiv="Content-Type" content="text/html; charset=utf-8"-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--refresh-->
+    <!--meta http-equiv="refresh" content="30"-->
+
+    <!--basic css-->
+    <link rel="stylesheet" type="text/css" href="styles/jquery.fullPage.css">
+    <link rel="stylesheet" type="text/css" href="styles/main-new.css">
+
+    <title>Continuous scrolling - fullPage.js</title>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!--menu-->
+        <!--default css : { display:block }-->
+        <nav id="navbar" class="navbar-container">
+            <div id="brand-logo"></div>
+            <!--#menu.menu-container:-->
+            <ul id="menu" class="menu-container"><!--/.ul menu--></ul>
+            <!--download button-->
+            <div id="try-button" class="hide-menu"><a href="#download">TRY IT NOW</a></div>
+        <!--/.menu-->
+        </nav>
+
+
+        <!--section-->
+        <div id="fullpage">
+
+        <!--/.section-->
+        </div>
+    <!--/.wrapper-->
+    </div>
+
+
+    <!--[if IE]>
+    <script type="text/javascript">
+        var console = { log: function() {} };
+    </script>
+    <![endif]-->
+
+    <script src="scripts/jquery.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>-->
+    <script type="text/javascript" src="scripts/jquery.fullPage.min.js"></script>
+
+
+    <!--template engine-->
+    <script type="text/javascript" src="scripts/lib/jsrender.js"></script>
+    <script type="text/javascript" src="scripts/lib/jsviews.js"></script>
+
+
+    <!--top menu template:prefix-->
+    <script type="text/html" id="menuTmpl">
+
+        <li id="{{prefix:tag}}"  {{if class}} class="{{:class}}" {{/if}} data-menuanchor="{{:tag}}" {{if parent_tag}} data-parent="{{:parent_tag}} {{/if}}">
+            <a href="{{:'#' + tag}}">{{upper:values}}</a>
+        <!--/.li item-->
+        </li>
+
+    </script>
+
+    <!--section template:tag2id,-->
+    <script type="text/html" id="sectionTmpl">
+        <div class="section" id="{{tag2id:'section'}}">
+            <div id="{{:tag}}-page" class="page">
+                <div class="page-container">
+                    {{for sectionContent tmpl="#sectionContentTmpl" /}}
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!--section content template-->
+    <script type="text/html" id="sectionContentTmpl">
+        {{if description}}
+            <div class="{{:description.tag}}-description"><p class="{{:description.tag}}-title">{{upper:description.title}}</p><p class="{{:description.tag}}-sub-header-line">{{:description.content}}</p></div>
+        {{/if}}
+
+        {{if images}}
+            <div class="images">
+                {{for images}}
+                    <img class={{:class}} src="{{:path}}">
+                {{/for}}
+            </div>
+        {{/if}}
+
+        {{if videos}}
+            <div class="videos">
+                {{for videos}}
+                    <iframe src="{{:path}}" width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                {{/for}}
+            </div>
+        {{/if}}
+
+        {{if content}}
+            <div class="values"></div>
+        {{/if}}
+    </script>
+
+
+    <script type="text/html" id="side-nav">
+    </script>
+
+
+    <script id="logics">
+        var logo_white = 'images/Guuud-logo-white.png';
+        var logo_dark  = 'images/Guuud-logo-blue.png';
+
+        // in future these data should be dynamically retrieved via RESTful api
+        // a light weight server provide information to populate
+        var pageOptions = [
+            {
+                tag:   'home',
+                class: 'active',
+                values:'home',
+                sectionContent: {
+                    description:{//#home-description
+                        tag:    'home',
+                        title:  'GUUUD, YOUR PERSONAL TRACKER',
+                        content:'Everything you need to know, is yours.'//.sub-header-line
+                    },
+                    images:[{'path':'images/Macbook-1.png', 'class':'home-mac1'}, {'path':'images/home-2.png', 'class':'home-phone1'}] //.container-float .home-img
+                }
+                // sectionCtent
+            }, {
+                tag:   'about-guuud',
+                values:'about guuud',
+                sectionContent:{
+                    description:{
+                        tag:    'about',
+                        title:  'About Us',
+                        content:'Guuud is created all out of love - in this information age, too much information is a pain.Guuud is here for the everyday web-surfer, the bargain hunter, the price sensitive, the lifestyle gurus. Watch Guuud!'
+                    },
+                    videos:[{'path':'https://player.vimeo.com/video/128470953'}]
+                }
+                // sectionCtent
+            }
+        ];
+
+        // (0) populate data:
+        // helper functions -- 1
+        $.views.converters("prefix", function(val){
+            return "menu-" + val;
+        });
+        // helper functions -- 2
+        $.views.converters("upper",  function(val){
+            // for debugging
+            val = val || 'undefined';
+
+            return  val.toUpperCase();
+        });
+        // helper functions -- 3
+        var number = 0;
+        $.views.converters("tag2id", function(val){
+            return val + (number++).toString();
+        });
+
+        // (1) render menu with pageOptions data
+        var htmlOutput = $("#menuTmpl").render(pageOptions);
+        $(htmlOutput).appendTo("#menu");
+
+        // (2) render section with pageOptions data
+        var htmlOutput2 = $("#sectionTmpl").render(pageOptions);
+        $(htmlOutput2).appendTo("#fullpage");
+
+        // initialize page side bar
+        $(document).ready(function(){
+
+            var menus = ['#menu'];
+
+            var anchorList = pageOptions.map(function(val){
+                        return val.tag;
+                    });
+
+            var colorsList = ['#73C4D7', '#FFFFFF'];
+
+
+            $('#fullpage').fullpage({
+                sectionsColor: colorsList,
+                anchors: anchorList,
+                menu: menus[0],
+                'navigation': true,
+                'navigationPosition': 'right'
+            })
+
+        })
+
+
+
+
+    </script>
+
+    <!--old controlling codes -->
+    <!--script type="text/javascript">
+        var darkThemeColor = '#072E55';
+        var whiteThemeColor = '#FFFFFF';
+        var logoWhite = 'images/Guuud-logo-white.png';
+        var logoDark = 'images/Guuud-logo-blue.png';
+
+        var pageThemes = [
+            {},
+            {
+                tag: 'home',
+                logo: logoWhite,
+                menu: {
+                    fontColor: whiteThemeColor,
+                    selected: whiteThemeColor
+                },
+                navigation: whiteThemeColor,
+                tryButtonHidden: true
+            },
+            {
+                tag: 'about-guuud',
+                logo: logoDark,
+                menu: {
+                    fontColor: darkThemeColor,
+                    selected: darkThemeColor
+                },
+                navigation: darkThemeColor,
+                tryButtonHidden: false
+            },
+            {
+                tag: 'portfolio-plugin',
+                logo: logoWhite,
+                menu: {
+                    fontColor: whiteThemeColor,
+                    selected: whiteThemeColor
+                },
+                navigation: whiteThemeColor,
+                tryButtonHidden: false
+            },
+            {
+                tag: 'portfolio-website',
+                logo: logoWhite,
+                menu: {
+                    fontColor: whiteThemeColor,
+                    selected: whiteThemeColor
+                },
+                navigation: whiteThemeColor,
+                tryButtonHidden: false
+            },
+            {
+                tag: 'portfolio-apps',
+                logo: logoWhite,
+                menu: {
+                    fontColor: whiteThemeColor,
+                    selected: whiteThemeColor
+                },
+                navigation: whiteThemeColor,
+                tryButtonHidden: false
+            },
+            {
+                tag: 'portfolio-notifications ',
+                logo: logoWhite,
+                menu: {
+                    fontColor: whiteThemeColor,
+                    selected: whiteThemeColor
+                },
+                navigation: whiteThemeColor,
+                tryButtonHidden: false
+            },
+            {
+                tag: 'supporting',
+                logo: logoDark,
+                menu: {
+                    fontColor: darkThemeColor,
+                    selected: darkThemeColor
+                },
+                navigation: darkThemeColor,
+                tryButtonHidden: false
+            },
+            {
+                tag: 'download',
+                logo: logoDark,
+                menu: {
+                    fontColor: darkThemeColor,
+                    selected: darkThemeColor
+                },
+                navigation: darkThemeColor,
+                tryButtonHidden: true
+            },
+            {
+                tag: 'contact',
+                logo: logoWhite,
+                menu: {
+                    fontColor: whiteThemeColor,
+                    selected: whiteThemeColor
+                },
+                navigation: whiteThemeColor,
+                tryButtonHidden: false
+            }
+        ];
+
+        $(document).ready(function() {
+            $('#fullpage').fullpage({
+                sectionsColor: ['#73C4D7', '#FFFFFF', '#283654', '#283654', '#283654', '#283654', 'whitesmoke', '#DAF1F7', '#1C1C1C'],
+                anchors: ['home', 'aboutGuuud', 'portfolio', 'portfolio1', 'portfolio2', 'portfolio3', 'supporting', 'download', 'contact'],
+                menu: '#menu',
+                continuousVertical: false,
+                'navigation': true,
+                'navigationPosition': 'right',
+                onLeave: function(index, nextIndex, direction) {
+                    console.log(nextIndex)
+                    var theme = pageThemes[nextIndex];
+                    var section = '#section' + nextIndex - 1;
+                    console.log(theme)
+                    var backgroundImage = 'url("'+theme.logo+'") no-repeat';
+
+                    $('#brand-logo').css('background', backgroundImage);
+
+                    $('#menu>li>a').css('color', theme.menu.fontColor);
+                    $.each($('#menu').find('li'), function (menuIndex) {
+                        $(this).css('border-color', ' ');
+                        if(menuIndex == (nextIndex-1)) {
+                            $(this).css('border-color', theme.menu.selected);
+                        }
+                        var ParentNode = '#' + $(this).data('parent');
+                        $(this).removeClass('parent-active')
+                        if(ParentNode && menuIndex == (nextIndex-1)) {
+                            $(ParentNode).addClass('parent-active');
+                        }
+                    });
+
+                    if(!theme.tryButtonHidden) {
+                        $('#try-button').removeClass('hide-menu');
+                    } else {
+                        $('#try-button').addClass('hide-menu');
+                    }
+
+                    $('#fp-nav>ul>li>a>span').css('background', theme.navigation);
+                    $('#try-button').css('display', 'none!important');
+
+                }
+            });
+        });
+    </script-->
+</body>
+</html>
